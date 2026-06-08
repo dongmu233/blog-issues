@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('posts');
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+---
+
+<BaseLayout title="标签 - 须弥芥子">
+  <main>
+    <h1>🏷️ 标签</h1>
+    <div class="tags">
+      {tags.map((tag) => (
+        <a href={`/tags/${tag}/`} class="tag">
+          {tag}
+          <span class="count">
+            ({posts.filter((post) => post.data.tags.includes(tag)).length})
+          </span>
+        </a>
+      ))}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  h1 {
+    color: #2c3e50;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .tag {
+    background: #e8f4f8;
+    color: #2980b9;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+  .tag:hover {
+    background: #3498db;
+    color: white;
+  }
+  .count {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+</style>
