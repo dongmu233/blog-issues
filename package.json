@@ -3,9 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "fetch": "node scripts/fetch-issues.mjs",
+    "dev": "node scripts/fetch-issues.mjs && astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/fetch-issues.mjs && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
